@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Indie+Flower&family=Pacifico&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💖 Aesthetic Quote Generator 💖</title>
+     <style>
+
+        .handwritten-1 { font-family: 'Dancing Script', cursive; }
+        .handwritten-2 { font-family: 'Pacifico', cursive; }
+        .handwritten-3 { font-family: 'Indie Flower', cursive; }
+
+       
+        .h1{
+            text-align: center;
+            color:rgb(12, 9, 10);
+            font-family: cursive;
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+        body {
+            font-family: cursive;
+            text-align: center;
+            margin: 50px;
+            background: #C890A7;
+            color: #444;
+            transition: background 0.3s;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 20px 10px 10px rgba(132, 88, 88, 0.79);
+            display: inline-block;
+            min-width: 350px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        p {
+            font-size: 20px;
+            font-family: cursive;
+            font-weight: bold;
+            color: #212121;
+        }
+
+        
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 20px;
+            border: none;
+            background: #FBF5E5;
+            color: #212121;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 25px;
+            margin: 5px;
+            transition: 0.3s ease-in-out;
+            font-weight: bold;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        .copy-btn { background:#FBF5E5; }
+        .dark-mode-btn { background: black; h1 { color:white;}}
+        .rainbow-btn { background: linear-gradient(90deg, #ffafad,#ffd6a5,#fcfeb6,#cafebf,#9df3fd,#a2c3fd,#bfb3fd,#ffc7fc); color: black; }
+        .surprise-btn { background: #6200ea; }
+
+        .dark-mode-btn {
+            background: black;
+            color: white;
+        }
+        .rainbow-mode {
+            animation: rainbow 3s infinite linear;
+        }
+        @keyframes rainbow {
+            0% { background: #ffafad; }
+            16% { background: #ffd6a5; }
+            33% { background: #fcfeb6; }
+            33% { background: #cafebf; }
+            50% { background: #9df3fd; }
+            66% { background: #a2c3fd; }
+            83% { background: #bfb3fd; }
+            100% { background: #ffc7fc; }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="h1">Words of Wisdom </h1>
+<div class="container" id="quote-container">
+    <p id="quote-text"><strong>{{ quotes }}</strong></p>
+</div>
+
+<div class="buttons">
+    <button onclick="fetchQuote('motivational')">Motivational</button>
+    <button onclick="fetchQuote('love')">Love</button>
+    <button onclick="fetchQuote('life')">Life</button>
+    <button onclick="fetchQuote('friendship')">Friendship</button>
+    <button onclick="fetchQuote('Movie')">Iconic Movie Quotes</button>
+    <button onclick="fetchQuote('happiness')">Happiness</button><br>
+    <button class="copy-btn" onclick="copyQuote()">📋 Copy</button>
+    <button class="dark-mode-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+    <button class="rainbow-btn" onclick="toggleRainbowMode()">Rainbow Mode</button>
+    <button class="favorite-btn" onclick="addFavoriteQuote()">❤️ Favourite</button>
+    <button class="share-btn" onclick="shareQuote()">📤 Share</button>
+    <button class="tts-btn" onclick="speakQuote()">🔊 Listen</button>
+    <button class="handwritten-btn" onclick="toggleHandwritten()">✍️ Handwritten Style</button>
+    <button class="customize-btn" onclick="openCustomization()">🎨 Customize</button>
+    <a href="/app">
+        <button>Back</button>
+    </a>
+</div>
+
+
+<div id="customization-panel" style="display: none;">
+    <label>Font: <select id="fontSelect" onchange="changeFont()">
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Times New Roman">Times New Roman</option>
+    </select></label>
+    <label>Text Color: <input type="color" id="textColor" onchange="changeTextColor()"></label>
+    <label>Background Color: <input type="color" id="bgColor" onchange="changeBgColor()"></label>
+</div>
+
+<section id="history">
+    <ul id="history-list"></ul>
+</section>
+
+<section id="favorites" class="history-container" style="display: none;">
+    <h2>Favorites</h2>
+    <ul id="favorites-list"></ul>
+</section>
+
+<section id="copied-quotes" class="history-container" style="display: none;">
+    <h2>Copied Quotes</h2>
+    <ul id="copied-quotes-list"></ul>
+</section>
+
+    <script>
+        
+            // Function to toggle dark mode
+            function toggleDarkMode() {
+                const body = document.body;
+                const currentBackground = body.style.backgroundColor;
+                
+                // Toggle dark mode by changing background and text color
+                if (currentBackground === 'rgb(12, 9, 10)') { // Dark background color
+                    body.style.backgroundColor = '#C890A7'; // Original background color
+                    body.style.color = '#444'; // Original text color
+                    document.querySelector('h1').style.color = 'rgb(12, 9, 10)';
+                } else {
+                    body.style.backgroundColor = 'rgb(12, 9, 10)'; // Dark background color
+                    body.style.color = 'white'; // Light text color for dark mode
+                    document.querySelector('h1').style.color = 'white';
+                }
+            }
+        
+            // Function to toggle rainbow mode
+            function toggleRainbowMode() {
+                const body = document.body;
+                
+                // Toggle rainbow mode by adding or removing the animation class
+                if (body.classList.contains('rainbow-mode')) {
+                    body.classList.remove('rainbow-mode');
+                } else {
+                    body.classList.add('rainbow-mode');
+                }
+            }
+        
+            // Existing functions and other code
+            // Function to log browsing history
+            function logHistory(category) {
+                const excludedCategories = ["home", "about", "history"];
+                if (!excludedCategories.includes(category)) {
+                    const timestamp = new Date().toLocaleString();
+                    const history = JSON.parse(localStorage.getItem("quoteHistory")) || [];
+                    history.push({ category: category, time: timestamp });
+                    localStorage.setItem("quoteHistory", JSON.stringify(history));
+                }
+            }
+        
+            // Function to display the browsing history
+            function displayHistory() {
+                const historyList = document.getElementById("history-list");
+                historyList.innerHTML = "";
+                const history = JSON.parse(localStorage.getItem("quoteHistory")) || [];
+                if (history.length === 0) {
+                    historyList.innerHTML = "<li>No browsing history available.</li>";
+                } else {
+                    history.forEach(entry => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `${entry.category} - ${entry.time}`;
+                        historyList.appendChild(listItem);
+                    });
+                }
+            }
+        
+            // Function to mark a quote as favorite
+            function addFavoriteQuote() {
+                const quoteText = document.getElementById("quote-text").innerText;
+                const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+                
+                // Check if quote is already a favorite
+                if (favorites.includes(quoteText)) {
+                    alert("This quote is already in your favorites!");
+                } else {
+                    favorites.push(quoteText);
+                    localStorage.setItem("favorites", JSON.stringify(favorites));
+                    alert("Quote added to favorites! 💖");
+                }
+            }
+        
+            // Function to display favorite quotes
+            function displayFavorites() {
+                const favoritesList = document.getElementById("favorites-list");
+                favoritesList.innerHTML = "";
+                const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+                
+                if (favorites.length === 0) {
+                    favoritesList.innerHTML = "<li>No favorite quotes yet.</li>";
+                } else {
+                    favorites.forEach(quote => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = quote;
+                        favoritesList.appendChild(listItem);
+                    });
+                }
+            }
+        
+            // Function to fetch a quote for a given category
+            function fetchQuote(category) {
+                // Send request to the backend to fetch a quote for the selected category
+                fetch(`/quotes?category=${category}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("quote-text").innerText = data.quotes;
+                        logHistory(category); // Log the category in history
+                    })
+                    .catch(error => console.error("Error fetching quote:", error));
+            }
+        
+            // Function to copy the displayed quote to the clipboard
+            function copyQuote() {
+                const quoteText = document.getElementById("quote-text").innerText;
+                navigator.clipboard.writeText(quoteText).then(() => {
+                    alert("Quote copied to clipboard! 📋✨");
+                    // Save copied quote to localStorage
+                    saveCopiedQuote(quoteText);
+                }).catch(error => console.error("Error copying quote:", error));
+            }
+        
+            // Function to save the copied quote in localStorage
+            function saveCopiedQuote(quoteText) {
+                const copiedQuotes = JSON.parse(localStorage.getItem("copiedQuotes")) || [];
+                
+                // Avoid duplicates in copied quotes
+                if (!copiedQuotes.includes(quoteText)) {
+                    copiedQuotes.push(quoteText);
+                    localStorage.setItem("copiedQuotes", JSON.stringify(copiedQuotes));
+                }
+            }
+        
+            // Function to display copied quotes
+            function displayCopiedQuotes() {
+                const copiedQuotesList = document.getElementById("copied-quotes-list");
+                copiedQuotesList.innerHTML = ""; // Clear the existing list
+        
+                const copiedQuotes = JSON.parse(localStorage.getItem("copiedQuotes")) || [];
+                
+                if (copiedQuotes.length === 0) {
+                    copiedQuotesList.innerHTML = "<li>No copied quotes yet.</li>";
+                } else {
+                    copiedQuotes.forEach(quote => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = quote;
+                        copiedQuotesList.appendChild(listItem);
+                    });
+                }
+            }
+        
+            // Function to toggle between sections
+            function toggleContent(sectionId) {
+                const sections = document.querySelectorAll("section");
+                sections.forEach((section) => {
+                    section.style.display = "none";
+                });
+        
+                const selectedSection = document.getElementById(sectionId);
+                if (selectedSection) {
+                    selectedSection.style.display = "block";
+                }
+        
+                if (sectionId === 'history') {
+                    displayHistory();
+                }
+                if (sectionId === 'favorites') {
+                    displayFavorites();
+                }
+                if (sectionId === 'copied-quotes') {
+                    displayCopiedQuotes();
+                }
+            }
+        
+            // Show home when the page loads
+            window.onload = function() {
+                toggleContent('home'); // Default to home section
+            };
+            function shareQuote() {
+    let quoteElement = document.getElementById("quote-text");
+    
+    if (!quoteElement) {
+        alert("Quote text not found!");
+        return;
+    }
+
+    let quote = quoteElement.innerText.trim();
+    if (quote === "") {
+        alert("No quote available to share.");
+        return;
+    }
+
+    let encodedQuote = encodeURIComponent(quote);
+    
+    let whatsappUrl = `https://api.whatsapp.com/send?text=${encodedQuote}`;
+    let facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com&quote=${encodedQuote}`;
+    let linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://yourwebsite.com&summary=${encodedQuote}`;
+    let instagramUrl = "#"; // Instagram does not support direct URL sharing
+    
+    let shareOptions = `
+        <div id="share-links">
+            <p>Share on:</p>
+            <a href='${whatsappUrl}' target='_blank'>WhatsApp</a> |
+            <a href='${facebookUrl}' target='_blank'>Facebook</a> |
+            <a href='${linkedinUrl}' target='_blank'>LinkedIn</a> |
+            <a href='${instagramUrl}' target='_blank' onclick='alert("Instagram sharing is not supported directly.")'>Instagram</a>
+        </div>
+    `;
+
+    // Remove existing share links (if any) before adding new ones
+    let existingShareDiv = document.getElementById("share-links");
+    if (existingShareDiv) {
+        existingShareDiv.remove();
+    }
+
+    let shareDiv = document.createElement("div");
+    shareDiv.innerHTML = shareOptions;
+    document.querySelector(".buttons").appendChild(shareDiv);
+}
+
+function speakQuote() {
+    let quote = document.getElementById("quote-text").innerText;
+    let speech = new SpeechSynthesisUtterance(quote);
+    speechSynthesis.speak(speech);
+}
+
+let handwritingStyles = ['handwritten-1', 'handwritten-2', 'handwritten-3'];
+        let currentStyleIndex = 0;
+
+        function toggleHandwritten() {
+            let quoteText = document.getElementById("quote-text");
+
+            // Remove any existing handwritten style
+            quoteText.classList.remove(...handwritingStyles);
+
+            // Apply new handwritten style
+            quoteText.classList.add(handwritingStyles[currentStyleIndex]);
+
+            // Cycle through the styles
+            currentStyleIndex = (currentStyleIndex + 1) % handwritingStyles.length;
+        }
+
+        function openCustomization() {
+    let panel = document.getElementById("customization-panel");
+    panel.style.display = panel.style.display === "none" ? "block" : "none";
+}
+
+function changeFont() {
+    let font = document.getElementById("fontSelect").value;
+    document.getElementById("quote-text").style.fontFamily = font;
+}
+
+function changeTextColor() {
+    let color = document.getElementById("textColor").value;
+    document.getElementById("quote-text").style.color = color;
+}
+
+function changeBgColor() {
+    let color = document.getElementById("bgColor").value;
+    document.getElementById("quote-container").style.backgroundColor = color;
+}
+
+    </script>
+</body>
+</html>
+
+
+

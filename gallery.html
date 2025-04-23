@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Gallery</title>
+    <style>
+        body {
+            font-family: cursive;
+            background-color:rgb(82, 22, 66);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container a{
+            margin-top: 2em;
+        }
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color:rgb(204, 153, 180);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        h1 {
+            color:rgb(26, 4, 26);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            background-color:rgb(236, 207, 231);
+            border: 1px solid rgb(34, 5, 30);
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+
+        select:focus {
+            border-color:rgb(60, 4, 48);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .quote {
+            background-color: rgb(231, 214, 228);
+            border-radius: 15px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .quote:hover {
+            transform: scale(1.05);
+        }
+
+        .quote img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .quote img:hover {
+            transform: scale(1.1);
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color:rgb(86, 3, 59);
+            border: 1px solid rgb(34, 5, 30);
+            color: white;
+            margin-top:2em;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .quote img {
+            max-width: 100%;
+            height: 200px;  /* Set a fixed height */
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        button:hover {
+            background-color:rgb(245, 186, 241);
+            color:rgb(36, 0, 24);
+        }
+
+        .back-button {
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color:rgb(36, 1, 41);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            select {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Meme Gallery</h1>
+
+        <!-- Dropdown menu for quote categories -->
+        <select id="quoteCategory" onchange="loadQuotes()">
+            <option value="jetha">Jethalal special</option>
+            <option value="iconics">Iconics</option>
+            <option value="filmy">Filmy</option>
+            <option value="facts">Facts</option>
+            <option value="funny">Hasoo</option>
+        </select>
+
+        <!-- Gallery container -->
+        <div id="quoteGallery" class="gallery">
+            <!-- Quotes will be displayed here -->
+        </div>
+
+        <!-- Back Button -->
+        <a href="/app">
+            <button>Back</button>
+        </a>
+    </div>
+
+    <script>
+        // Sample data structure for quotes
+        const quotes = {
+            jetha: [
+                { image: 'https://www.scrolldroll.com/wp-content/uploads/2021/09/jethalal-meme-templates-18.jpeg' },
+                { image: 'https://tse2.mm.bing.net/th?id=OIP.XOP4XPtGZFhv7P_ohVk8IAHaFj&pid=Api&P=0&h=180' },
+                { image: 'https://tse3.mm.bing.net/th?id=OIP.Lf1IAeSdjMu4AiBdQ35nQwHaHa&pid=Api&P=0&h=180'},
+                { image: 'https://tse1.mm.bing.net/th?id=OIP.hHJPTlSWV_5bJBouKAHl7AAAAA&pid=Api&P=0&h=180' },
+                { image: 'https://tse3.mm.bing.net/th?id=OIP.yUhORLlR5jBY10R7NBvTqAHaEQ&pid=Api&P=0&h=180' },
+                { image: 'https://tse4.mm.bing.net/th?id=OIP.KrFZ1qC_SRvs97Jwmftb5wHaFS&pid=Api&P=0&h=180'},
+                { image: 'https://tse2.mm.bing.net/th?id=OIP.Q0xEtJvPEf_lmzvwqU171AHaFj&pid=Api&P=0&h=180'},
+                { image: 'https://th.bing.com/th/id/OIP.PCcnMgLiahvZYTxqOUuczQAAAA?w=132&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'},
+                { image: 'https://th.bing.com/th/id/OIP._9C9RDkbvoJo4QoS2AIUlwHaHa?w=165&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'}
+
+            ],
+            iconics: [
+                { image: 'https://timesofindia.indiatimes.com/thumb/msid-75535016,width-800,height-600,resizemode-4/75535016.jpg?imglength=268682'},
+                { image: 'https://chitrkala.in/blog/wp-content/uploads/2022/05/unnamed-24.jpg'},
+                { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRstZpSzNvdqHrUnudIUJvCknF8KmTp-G2t-Q&s'},
+                { image: 'https://img.paisawapas.com/ovz3vew9pw/2023/11/16152543/Picture2-2.png'},
+                { image: 'https://images.bewakoof.com/utter/content/4778/content_Tussi_ja_rahe_ho_Tussi_na_jao_-_famous_bollywood_dialogues.png'},
+                { image: 'https://tse4.mm.bing.net/th?id=OIP.iUhvt5zCl9ysajZAE8vrnAHaEH&pid=Api&P=0&h=180'},
+                { image: 'https://blog.grabon.in/wp-content/uploads/2017/01/famous-bollywood-dialogues-karan-arjun.jpg'},
+                { image: 'https://chitrkala.in/blog/wp-content/uploads/2022/05/unnamed-8.jpg'},
+                { image: 'https://images.bewakoof.com/utter/content/4776/content_Picture_abhi_baaki_hai_mere_dost_-_famous_bollywood_dialogues.png'}    
+            ],
+            funny: [
+                { image: 'https://timesofindia.indiatimes.com/thumb/msid-75535016,width-800,height-600,resizemode-4/75535016.jpg?imglength=268682'},
+                { image: 'https://i.pinimg.com/564x/76/95/49/769549449799ab25cbe078b23559a363.jpg'},
+                { image: 'https://i.pinimg.com/564x/d3/d8/8c/d3d88ccdfa17bd7e0f989d219327e3f6.jpg'},
+                { image: 'https://i.pinimg.com/564x/d3/d8/8c/d3d88ccdfa17bd7e0f989d219327e3f6.jpg'},
+                { image: 'https://pbs.twimg.com/media/FWJxcjMVsAAktZR.jpg'},
+                { image: 'https://i.pinimg.com/736x/de/b9/d1/deb9d1ba896cf50b830d2a165a270ed8.jpg'}
+
+            ],
+
+            filmy: [
+                { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRstZpSzNvdqHrUnudIUJvCknF8KmTp-G2t-Q&s'},
+                { image: 'https://images.bewakoof.com/utter/content/4773/content_Mogambo_Khush_Hua_-_famous_bollywood_dialogues.png'},
+                { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHiM00VS6inEgtAwbxy42Sy3GvkeHZcvnWg&s'},
+                { image: 'https://static.toiimg.com/thumb/msid-68990316,width-1280,height-720,resizemode-4/68990316.jpg'},
+                { image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZn6wq1054ViIQutndm_r8aWb6UsQ2KVVPeQ&s'},
+                { image: 'https://freekaamaal.com/blog/wp-content/uploads/2022/07/chak-de-india.jpg'}
+            ],
+
+            facts: [
+                { image: 'https://www.pinkvilla.com/images/2024-05/1714754119_mujhe-ghar-jana-hai.jpg' },
+                { image: 'https://wp.scoopwhoop.com/wp-content/uploads/2015/05/567734fc6e510a6f3a75b905_3.jpg ' },
+                { image: 'https://images.bewakoof.com/utter/content/4792/content_Tumse_naa_ho_payega_-_famous_bollywood_dialogues.png' },
+                { image: 'https://i.pinimg.com/236x/33/e5/cf/33e5cfa74b81cbf9c26a66914e6b5aa7.jpg'},
+                { image: 'https://cdn.shopify.com/s/files/1/0473/8904/8992/files/YJHD_Meme_480x480.jpg?v=1690964577'},
+                { image: 'https://tse2.mm.bing.net/th?id=OIP.wqFPG8VB0NQL6a7BDE23jAHaFE&pid=Api&P=0&h=180'},
+                { image: 'https://i.pinimg.com/736x/cc/fa/9d/ccfa9d303fa16ef5b4ce642cd2882d12.jpg'},
+                { image: 'https://im.indiatimes.in/content/2018/Sep/bollywood_1537350990.jpg?w=640&h=427&cc=1&webp=1&q=75'},
+                { image: 'https://im.indiatimes.in/content/2018/Sep/bollywood_1537351037.jpg?w=640&h=427&cc=1&webp=1&q=75'}
+                ]
+        };
+
+        // Function to load quotes based on the category selected
+        function loadQuotes() {
+            const category = document.getElementById('quoteCategory').value;
+            const gallery = document.getElementById('quoteGallery');
+            
+            // Clear existing quotes
+            gallery.innerHTML = '';
+
+            // Load the quotes for the selected category
+            const selectedQuotes = quotes[category];
+            
+            selectedQuotes.forEach(quote => {
+                const quoteDiv = document.createElement('div');
+                quoteDiv.classList.add('quote');
+                
+                // Add the image
+                const quoteImage = document.createElement('img');
+                quoteImage.src = quote.image;
+                quoteDiv.appendChild(quoteImage);
+                
+               
+
+                // Create the "Copy" button
+                const copyButton = document.createElement('button');
+                copyButton.innerText = 'Copy Image';
+                copyButton.onclick = function() {
+                    copyQuoteAndImage(quote.image);
+                };
+                quoteDiv.appendChild(copyButton);
+
+                // Append the quote to the gallery
+                gallery.appendChild(quoteDiv);
+            });
+        }
+
+        // Function to copy quote and image URL to clipboard
+        function copyQuoteAndImage(imageUrl) {
+            // Prepare the content to be copied
+            const quoteContent = `
+                
+                Image URL: ${imageUrl}
+            `;
+
+            // Create a temporary textarea to copy the content
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = quoteContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            // Notify the user
+            alert('Image URL copied to clipboard!');
+        }
+
+        // Function to go back to the main page
+        
+
+        // Initial load for the 'happy' category
+        loadQuotes();
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quotify</title>
+    <style>
+      body {
+        font-family: cursive;
+        background-color: #F5F5DC;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+       
+        background: linear-gradient(
+          135deg,
+          #fde2e4 0%,
+          #dbe7e4 25%,
+          #cfe3f0 50%,
+          #f8e1f4 75%,
+          #d4f1f4 100%
+        );
+       
+        
+
+        
+        
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  min-height: 100vh;
+}
+
+
+      }
+
+      /* Navbar Styles */
+      nav {
+        width: 100%;
+        background-color: rgb(14, 54, 47);
+        color: #fff;
+        padding: 40px 10px;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+      }
+
+      .navbar-brand {
+        font-size: 40px;
+        color: rgba(14, 51, 31, 0.92);
+        text-decoration: none;
+        display: flex;
+        padding-left: 50px;
+        font-weight: 800;
+      }
+
+      .navbar-nav {
+        list-style-type: none;
+        color: rgba(14, 51, 31, 0.92);
+        margin: 5px;
+        display: flex;
+        justify-content: space-around;
+        padding-right: 9em;
+      }
+
+      .navbar-nav li {
+        color: black;
+        padding-right: 20px;
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .navbar-nav a {
+        color: rgba(14, 51, 31, 0.92);
+        font-size: 24px;
+        text-decoration: none;
+        justify-content: space-around;
+        text-weight: 800;
+      }
+
+      .navbar-nav a:hover {
+        font-size: 24px;
+        color: rgba(26, 102, 61, 0.92);
+        transform: scale(1.05);
+        cursor: pointer;
+        box-shadow: rgb(22, 47, 35);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      /* Form Styles */
+      .container {
+        background-color: rgb(182, 246, 227);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(18, 43, 39, 0.96);
+        max-width: 400px;
+        width: 100%;
+        padding: 20px;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      /* Contact Us Form Styles */
+#contact {
+  background-color: #f2f2f2;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#contact h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#contact p {
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #6c63ff;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-group button {
+  width: 100%;
+  padding: 12px;
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-group button:hover {
+  background-color: #4e43d3;
+}
+
+#success-message {
+  text-align: center;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  display: none;
+}
+
+#error-message {
+  text-align: center;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  display: none;
+}
+
+@media (max-width: 600px) {
+  #contact {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 10px;
+  }
+
+  .form-group button {
+    font-size: 14px;
+  }
+}
+
+    
+
+      .toggle-link {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .toggle-link a {
+        color: #6c63ff;
+        text-decoration: none;
+      }
+
+      .toggle-link a:hover {
+        text-decoration: underline;
+      }
+      .contents{
+        padding: 70px;
+        background-color: rgb(178, 228, 212);
+        border-radius: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 1em 0 1em;
+      }
+
+      .content {
+        padding: 40px;
+        background-color: rgb(178, 228, 212);
+        border-radius: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border:0.1rem solid rgb(143, 130, 130);
+
+        max-width: 800px;
+        margin: 9em 15em 0 20em;
+      }
+
+      .section {
+        margin-bottom: 30px;
+      }
+
+      .team {
+        display: flex;
+        gap: 20px;
+        font-family: cursive;
+      }
+
+      .photo {
+        border-radius: 15px;
+      }
+
+      .team-member {
+        background: #eaeaea;
+        padding-bottom: 10px;
+        border-radius: 8px;
+        text-align: center;
+        flex: 1;
+      }
+
+      .page {
+        flex: 1 1 30rem;
+        margin: 1.5rem;
+        flex-direction: row;
+        background: rgb(178, 228, 212);
+        padding: 40px 130px;
+        border-radius: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        border: 0.1rem solid rgb(143, 130, 130);
+        transition: 0.5s ease;
+      }
+
+      .theme {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #contact,
+      #login,
+      #signup {
+        margin: 15em 19em 0 35em;
+      }
+
+      .history-container {
+        max-width: 800px;
+        margin: 9em auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .history-container h2 {
+        text-align: center;
+      }
+
+      .history-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .history-list li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      /* Style the tab buttons */
+      .tab-nav {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .tab-button {
+        padding: 10px 20px;
+        background-color: #f5f5dc;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        font-size: 16px;
+      }
+
+      .tab-button:hover {
+        background-color: #ccc;
+      }
+
+      /* Style for active and inactive tab content */
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content h3 {
+        color: #333;
+      }
+
+      .clear-history {
+        display: block;
+        margin: 1em auto;
+        padding: 10px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .clear-history:hover {
+        background-color: darkred;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <!-- navbar section -->
+      <nav class="navbar">
+        <a class="navbar-brand">Quotify</a>
+        <ul class="navbar-nav">
+          <li>
+            <a href="javascript:void(0)" onclick="toggleContent('home')">Home</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" onclick="toggleContent('about')">About Us</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" onclick="toggleContent('history')">History</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" onclick="toggleContent('contact')">Feedback</a>
+          </li>
+          <li>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- home section -->
+      <section id="home" style="display: block">
+        <div class="content">
+          <h2>Welcome to Quotify!</h2>
+          <p>
+            We're thrilled to have you here. Explore a world of inspiring
+            quotes, motivational messages, and thought-provoking insights
+            designed to elevate your mindset and spark creativity. Whether
+            you're looking for daily inspiration or seeking the perfect words to
+            share, Quotify is your go-to source. We're excited to join you on
+            this journey of positivity and wisdom. Enjoy your stay!
+          </p>
+        </div>
+
+        <div class="theme">
+          <div class="page">
+            <h2>Quote</h2>
+            <a href="quote" onclick="toggleContent('quote')">Wanna search Quotes?</a>
+          </div>
+
+          <div class="page">
+            <h2>Meme-Gallery</h2>
+            <a href="gallery" onclick="toggleContent('gallery')">Wanna search memes?</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Us section -->
+      <section id="about" style="display: none">
+        <div class="content">
+          <p style="font-family: cursive">
+            Every day at Quotify, we dive into books, speeches, and history to
+            find quotes that move the heart and challenge the mind. Each quote
+            is handpicked to bring inspiration, wisdom, and motivation to our
+            readers."
+            <br />Did you know? The shortest quote ever is just one word: ‘Go.’ – by John Cage.
+          </p>
+          <div class="section">
+            <h2 style="margin-top: 40px">Meet the Team</h2>
+            <div class="team">
+              <div class="team-member">
+                <h3>Sapna Rathore</h3>
+                <img
+                  class="photo"
+                  src="https://tse2.mm.bing.net/th?id=OIP.HUXqNFfa0xOzWOsw2emPEQHaE7&pid=Api&P=0&h=180"
+                  height="200px"
+                  width="200px"
+                />
+              </div>
+              <div class="team-member">
+                <h3>Samiksha Yesade</h3>
+                <img
+                  class="photo"
+                  src="https://tse2.mm.bing.net/th?id=OIP.HUXqNFfa0xOzWOsw2emPEQHaE7&pid=Api&P=0&h=180"
+                  height="200px"
+                  width="200px"
+                />
+              </div>
+              <div class="team-member">
+                <h3>Laxmi Thorat</h3>
+                <img
+                  class="photo"
+                  src="https://tse2.mm.bing.net/th?id=OIP.HUXqNFfa0xOzWOsw2emPEQHaE7&pid=Api&P=0&h=180"
+                  height="200px"
+                  width="200px"
+                />
+              </div>
+            </div>
+            <p>
+              We believe that inspiration should be shared! Follow us, submit
+              your favorite quotes(abc@gmail.com), and be part of a community
+              that loves the power of words as much as you do!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- History Section -->
+      <section id="history" class="history-container" style="display: none;">
+        <h2>History</h2>
+
+        <!-- Tab-style navigation -->
+        <div class="tab-nav">
+          <button class="tab-button" onclick="toggleTabContent('browsing-history')">Browsing History</button>
+          <button class="tab-button" onclick="toggleTabContent('copied-quotes')">Copied Quotes</button>
+          <button class="tab-button" onclick="toggleTabContent('favorites')">Favorites</button>
+        </div>
+
+        <!-- Tab content areas -->
+        <div id="browsing-history" class="tab-content" style="display: block;">
+          <h3>Browsing History</h3>
+          <ul class="history-list" id="history-list"></ul>
+          <button class="clear-history" onclick="clearHistory()">Clear History</button>
+        </div>
+
+        <div id="copied-quotes" class="tab-content" style="display: none;">
+          <h3>Copied Quotes</h3>
+          <ul class="history-list" id="copied-quotes-list"></ul>
+          <button class="clear-history" onclick="clearCopiedQuotes()">Clear Copied Quotes</button>
+        </div>
+
+        <div id="favorites" class="tab-content" style="display: none;">
+          <h3>Favorites</h3>
+          <ul class="history-list" id="favorites-list"></ul>
+          <button class="clear-history" onclick="clearFavorites()">Clear Favorites</button>
+        </div>
+      </section>
+
+      <!-- Contact Us section -->
+<section id="contact" style="display: none;
+margin:1em 0 1em;">
+  <div class="contents">
+    <h2>Feedback</h2>
+    <p>We'd love to hear from you! Please fill out the form below to get in touch.</p>
+
+    <form action="/submit_contact" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+  
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br><br>
+  
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" required></textarea><br><br>
+  
+      <button type="submit">Submit</button>
+ 
+  
+    </form>
+    <!-- Feedback Display Section -->
+<div id="feedback-display">
+  <h3>What others are saying:</h3>
+  <ul>
+    {% for name, msg in feedbacks %}
+      <li><strong>{{ name }}:</strong> {{ msg }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+    <!-- Success Message -->
+    <div id="success-message" style="display: none; color: green;">
+      <p>Thank you for contacting us! We'll get back to you soon.</p>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" style="display: none; color: red;">
+      <p>Oops! Something went wrong. Please try again later.</p>
+    </div>
+  </div>
+</section>
+
+    </main>
+
+    <script>
+
+
+      // Function to handle Contact Us form submission
+document.getElementById("contact-form").addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent the default form submission
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
+
+  // Create a message object to store
+  const contactMessage = {
+    name: name,
+    email: email,
+    message: message,
+    timestamp: new Date().toLocaleString(),
+  };
+
+  // Save the contact message to localStorage (in an array format)
+  const contactMessages = JSON.parse(localStorage.getItem("contactMessages")) || [];
+  contactMessages.push(contactMessage);
+  localStorage.setItem("contactMessages", JSON.stringify(contactMessages));
+
+  // Display success message and reset form
+  document.getElementById("success-message").style.display = "block";
+  document.getElementById("contact-form").reset();
+  document.getElementById("error-message").style.display = "none";
+
+  // Hide the success message after 5 seconds
+  setTimeout(() => {
+    document.getElementById("success-message").style.display = "none";
+  }, 5000);
+});
+
+// Function to display saved contact messages (for admin or viewing purposes)
+function displayContactMessages() {
+  const messages = JSON.parse(localStorage.getItem("contactMessages")) || [];
+  console.log(messages); // You can choose to display this in a section on the page as needed
+}
+
+  // Function to add a quote to favorites
+function addFavoriteQuote(quote) {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  // Add the new favorite quote to the array
+  favorites.push(quote);
+
+  // Store the updated favorites in localStorage
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+
+  // Update the favorites section
+  displayFavorites();
+}
+
+// Function to display favorites
+function displayFavorites() {
+  const favoritesList = document.getElementById("favorites-list");
+  favoritesList.innerHTML = "";
+
+  // Get the favorites from localStorage
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  // Loop through the favorites and display each one
+  favorites.forEach((quote, index) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = quote;
+    favoritesList.appendChild(listItem);
+  });
+}
+
+// Function to clear favorites
+function clearFavorites() {
+  localStorage.removeItem("favorites");
+  displayFavorites();
+}
+
+// Function to log the history of the visited pages
+function logHistory(sectionId) {
+  const history = JSON.parse(localStorage.getItem("quoteHistory")) || [];
+
+  // Get the current time for the log entry
+  const currentTime = new Date().toLocaleString();
+
+  // Create a log entry for the section visit
+  const newEntry = {
+    category: sectionId,
+    time: currentTime,
+  };
+
+  // Push the new entry to history
+  history.push(newEntry);
+
+  // Store the updated history in localStorage
+  localStorage.setItem("quoteHistory", JSON.stringify(history));
+}
+
+// Function to display browsing history
+function displayHistory() {
+  const historyList = document.getElementById("history-list");
+  historyList.innerHTML = "";
+
+  // Get the history from localStorage
+  const history = JSON.parse(localStorage.getItem("quoteHistory")) || [];
+
+  // Loop through the history and display each entry
+  history.forEach(entry => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${entry.category} - ${entry.time}`;
+    historyList.appendChild(listItem);
+  });
+}
+
+// Function to display copied quotes
+function displayCopiedQuotes() {
+  const copiedQuotesList = document.getElementById("copied-quotes-list");
+  copiedQuotesList.innerHTML = "";
+
+  // Get the copied quotes from localStorage
+  const copiedQuotes = JSON.parse(localStorage.getItem("copiedQuotes")) || [];
+
+  // Loop through the copied quotes and display each one
+  copiedQuotes.forEach(quote => {
+    const listItem = document.createElement("li");
+    listItem.textContent = quote;
+    copiedQuotesList.appendChild(listItem);
+  });
+}
+
+// Function to add a copied quote
+function addCopiedQuote(quote) {
+  const copiedQuotes = JSON.parse(localStorage.getItem("copiedQuotes")) || [];
+
+  copiedQuotes.push(quote);
+
+  localStorage.setItem("copiedQuotes", JSON.stringify(copiedQuotes));
+
+  displayCopiedQuotes();
+}
+
+// Function to clear copied quotes
+function clearCopiedQuotes() {
+  localStorage.removeItem("copiedQuotes");
+  displayCopiedQuotes();
+}
+
+// Function to clear browsing history
+function clearHistory() {
+  localStorage.removeItem("quoteHistory");
+  displayHistory();
+}
+
+// Function to toggle between sections
+function toggleContent(sectionId) {
+  const sections = document.querySelectorAll("section");
+  sections.forEach((section) => {
+    section.style.display = "none";
+  });
+
+  const selectedSection = document.getElementById(sectionId);
+  if (selectedSection) {
+    selectedSection.style.display = "block";
+    logHistory(sectionId); // Log the history when a section is shown
+  }
+
+  if (sectionId === 'history') {
+    displayHistory(); // Show the browsing history when the history section is clicked
+    displayCopiedQuotes(); // Show copied quotes as well
+    displayFavorites(); // Show favorites as well
+  }
+}
+
+// Function to toggle tab content visibility
+function toggleTabContent(tabName) {
+  const tabContents = document.querySelectorAll(".tab-content");
+  tabContents.forEach((content) => {
+    content.style.display = "none";
+  });
+
+  const activeTab = document.getElementById(tabName);
+  if (activeTab) {
+    activeTab.style.display = "block";
+  }
+}
+
+// Event listener for the tab buttons (initiate with browsing history visible)
+document.addEventListener("DOMContentLoaded", () => {
+  const defaultTab = document.getElementById("browsing-history");
+  if (defaultTab) {
+    defaultTab.style.display = "block";
+  }
+});
+
+    </script>
+    <script src="/static/signup.js"></script>
+
+  </body>
+</html>
+
+
