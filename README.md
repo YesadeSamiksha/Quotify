@@ -3,7 +3,7 @@ Quotify
 
 Quotify is a simple and elegant web application designed for storing, displaying, and managing meaningful quotes. It provides users with the ability to sign up, log in, submit new quotes, and explore a gallery of all submitted quotes. Built with HTML on the frontend and Python (Flask) on the backend, this project is lightweight, clean, and beginner-friendly.
 
-#Features
+Features
 
 - User Authentication
   - Signup & Login system
@@ -21,7 +21,7 @@ Quotify is a simple and elegant web application designed for storing, displaying
 
 ---
 
-#Tech Stack
+Tech Stack
 
 Frontend:  
 - HTML5  
@@ -36,7 +36,7 @@ Database:
 
 ---
 
-#Project Structure
+Project Structure
 
 ```
 
@@ -59,7 +59,7 @@ Quotify/
 
 ---
 
-#How to Run the Project Locally
+How to Run the Project Locally
 
 1️⃣ Clone the Repository
 ```bash
@@ -122,7 +122,7 @@ Your Quotify app should now be running!
 
 ---
 
-#Why Quotify?
+Why Quotify?
 
 * Minimalistic and beginner-friendly
 * Demonstrates real backend-frontend integration
@@ -132,7 +132,7 @@ Your Quotify app should now be running!
 
 ---
 
-#Future Enhancements (Roadmap)
+Future Enhancements (Roadmap)
 
 * Add quote editing & deletion
 * Improve UI with better styling
@@ -144,14 +144,14 @@ Your Quotify app should now be running!
 
 ---
 
-#Contributing
+Contributing
 
 Feel free to fork this project, open issues, or submit pull requests.
 Suggestions and improvements are always welcome!
 
 ---
 
-#Author
+Author
 
 Samiksha Yesade
 Developer • Engineering Student • Tech Enthusiast
